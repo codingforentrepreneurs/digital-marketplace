@@ -53,6 +53,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'digitalmarket.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
