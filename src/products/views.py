@@ -9,8 +9,8 @@ from .models import Product
 def create_view(request): 
 	# FORM
 	form = ProductAddForm(request.POST or None)
-	if request.method == "POST":
-		print request.POST.get("price")
+	# if request.method == "POST":
+	# 	print request.POST.get("price")
 	if form.is_valid():
 		data = form.cleaned_data
 		title = data.get("title")
