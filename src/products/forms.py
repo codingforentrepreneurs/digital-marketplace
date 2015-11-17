@@ -1,10 +1,15 @@
 from django import forms
 
-
+PUBLISH_CHOICES = (
+	#('', ""),
+	('publish', "Publish"),
+	('draft', "Draft"),
+)
 class ProductAddForm(forms.Form):
 	title = forms.CharField()
-	description = forms.CharField() #this might be a problem
+	description = forms.CharField(widget=forms.Textarea) #this might be a problem
 	price  = forms.DecimalField()
+	publish = forms.ChoiceField(widget=forms.RadioSelect, choices=PUBLISH_CHOICES, required=False)
 
 
 	def clean_price(self):
