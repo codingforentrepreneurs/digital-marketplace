@@ -3,9 +3,5 @@
 
 {% block content %}
 
-<form method="POST" action="">
-	{% csrf_token %}
-{{ form.as_p }}
-<input type='submit' value='Update Product' />
-</form>
+{% include "form_include.html" with form=form submit_btn="Update Product" %}
 {% endblock content %}
