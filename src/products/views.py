@@ -6,38 +6,22 @@ from django.views.generic.list import ListView
 
 # Create your views here.
 
+from digitalmarket.mixins import MultiSlugMixin
+
 from .forms import ProductAddForm, ProductModelForm
 from .models import Product
 
 
-class ProductDetailView(DetailView):
-	model = Product
 
-	def get_object(self, *args, **kwargs):
-		slug = self.kwargs.get("slug")
-		ModelClass = self.model
-		if slug is not None:
-			try:
-				obj = get_object_or_404(ModelClass, slug=slug)
-			except ModelClass.MultipleObjectsReturned:
-				obj = ModelClass.objects.filter(slug=slug).order_by("-title").first()
-		else:
-			obj = super(ProductDetailView, self).get_object(*args, **kwargs)
-		return obj
+
+class ProductDetailView(MultiSlugMixin, DetailView):
+	model = Product
 
 class ProductListView(ListView):
 	model = Product
-	# template_name = "list_view.html"
-
-	# def get_context_data(self, **kwargs):
-	# 	context = super(ProductListView, self).get_context_data(**kwargs)
-	# 	print context
-	# 	context["queryset"] = self.get_queryset()
-	# 	return context
-
+	
 	def get_queryset(self, *args, **kwargs):
 		qs = super(ProductListView, self).get_queryset(**kwargs)
-		#qs = qs.filter(title__icontains="aaaaaaa")
 		return qs
 
 
