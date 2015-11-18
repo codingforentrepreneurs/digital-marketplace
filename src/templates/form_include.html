@@ -1,5 +1,5 @@
 <form method="POST" action="">
 {% csrf_token %}
 {{ form.as_p }}
-<input type='submit' value='{{ submit_btn }}' />
+<input type='submit' value='{% if submit_btn %}{{ submit_btn }}{% else %}Submit{% endif %}' />
 </form>

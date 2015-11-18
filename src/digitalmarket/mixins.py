@@ -15,3 +15,13 @@ class MultiSlugMixin(object):
 		else:
 			obj = super(MultiSlugMixin, self).get_object(*args, **kwargs)
 		return obj
+
+
+
+class SubmitBtnMixin(object):
+	submit_btn = None
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(SubmitBtnMixin, self).get_context_data(*args, **kwargs)
+		context["submit_btn"] = self.submit_btn
+		return context
