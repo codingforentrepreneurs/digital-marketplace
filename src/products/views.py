@@ -20,6 +20,21 @@ def create_view(request):
 	return render(request, template, context)
 
 
+def update_view(request, object_id=None):
+	product = get_object_or_404(Product, id=object_id)
+	form = ProductModelForm(request.POST or None, instance=product)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		#instance.sale_price = instance.price
+		instance.save()
+	template = "update_view.html"
+	context = {
+		"object": product,
+		"form": form,
+		}
+	return render(request, template, context)
+
+
 
 
 def detail_slug_view(request, slug=None):
