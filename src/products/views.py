@@ -1,9 +1,27 @@
+
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
+from django.views.generic.list import ListView
 # Create your views here.
 
 from .forms import ProductAddForm, ProductModelForm
 from .models import Product
+
+
+class ProductListView(ListView):
+	model = Product
+	# template_name = "list_view.html"
+
+	# def get_context_data(self, **kwargs):
+	# 	context = super(ProductListView, self).get_context_data(**kwargs)
+	# 	print context
+	# 	context["queryset"] = self.get_queryset()
+	# 	return context
+
+	def get_queryset(self, *args, **kwargs):
+		qs = super(ProductListView, self).get_queryset(**kwargs)
+		#qs = qs.filter(title__icontains="aaaaaaa")
+		return qs
 
 
 def create_view(request): 
@@ -35,7 +53,6 @@ def update_view(request, object_id=None):
 		"submit_btn": "Update Product"
 		}
 	return render(request, template, context)
-
 
 
 
@@ -84,3 +101,7 @@ def list_view(request):
 		"queryset": queryset
 	}
 	return render(request, template, context)
+
+
+
+
