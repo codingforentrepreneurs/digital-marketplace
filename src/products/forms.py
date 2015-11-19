@@ -1,6 +1,6 @@
 from django import forms
 
-
+from django.utils.text import slugify
 
 from .models import Product
 
@@ -74,6 +74,14 @@ class ProductModelForm(forms.ModelForm):
 			)
 		}
 
+	def clean(self, *args, **kwargs):
+		cleaned_data = super(ProductModelForm, self).clean(*args, **kwargs)
+		#title = cleaned_data.get("title")
+		#slug = slugify(title)
+		#qs = Product.objects.filter(slug=slug).exists()
+		#if qs:
+		# 	raise forms.ValidationError("Title is taken, new title is needed. Please try again.")
+		return cleaned_data
 
 	def clean_price(self):
 		price = self.cleaned_data.get("price")
