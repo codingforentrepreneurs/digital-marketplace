@@ -5,15 +5,21 @@
 	<link rel='stylesheet' href='{% static "css/base.css" %}' />
 <style>
 
-
+.main-content {
+	width: 800px;
+	margin: 0 auto;
+}
 {% block style %}{% endblock style %}
 </style>
 </head>
 <body>
 
+<div class='main-content'>
 {% block content %}
 <p>This is awesome</p>
 {% endblock content %}
+
+</div>
 </body>
 
 </html>
