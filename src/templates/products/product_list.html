@@ -5,6 +5,12 @@
 {% block content %}
 
 <h1>Products</h1>
+<p>
+<form method="GET" action="">
+<input type='text' name='q' placeholder='Search' value='{{ request.GET.q }}'>
+<input type='submit' value='Search'/>
+</form>
+</p>
 <ul>
 {% for instance in object_list %}
     <li>{{ instance }} - {{ instance.description }} {{ instance.price }}</li>
