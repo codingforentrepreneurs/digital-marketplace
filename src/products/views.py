@@ -1,5 +1,7 @@
 import os
 
+from mimetypes import guess_type
+
 from django.conf import settings
 from django.core.servers.basehttp import FileWrapper
 from django.core.urlresolvers import reverse
@@ -62,9 +64,16 @@ class ProductDownloadView(MultiSlugMixin, DetailView):
 	def get(self, request, *args, **kwargs):
 		obj = self.get_object()
 		filepath = os.path.join(settings.PROTECTED_ROOT, obj.media.path)
+		guessed_type = guess_type(filepath)[0]
 		wrapper = FileWrapper(file(filepath))
-		response = HttpResponse(wrapper, content_type='application/force-download')
-		response["Content-Disposition"] = "attachment; filename=%s" %(obj.media.name)
+		mimetype = 'application/force-download'
+		if guessed_type:
+			mimetype = guessed_type
+		response = HttpResponse(wrapper, content_type=mimetype)
+		
+		if not request.GET.get("preview"):
+			response["Content-Disposition"] = "attachment; filename=%s" %(obj.media.name)
+		
 		response["X-SendFile"] = str(obj.media.name)
 		return response
 
