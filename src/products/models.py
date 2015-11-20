@@ -32,6 +32,11 @@ class Product(models.Model):
 		view_name = "products:detail_slug"
 		return reverse(view_name, kwargs={"slug": self.slug})
 
+	def get_download(self):
+		view_name = "products:download_slug"
+		url = reverse(view_name, kwargs={"slug": self.slug})
+		return url
+
 
 
 def create_slug(instance, new_slug=None):

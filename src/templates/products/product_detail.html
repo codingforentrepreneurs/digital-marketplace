@@ -7,5 +7,9 @@
 <p>{{ object.description }}</p>
 <p>{{ object.price }}</p>
 
+{% if object.media %}
+<p><a href='{{ object.get_download }}'>Download</a></p>
+{% endif %}
+
 
 {% endblock content %}
