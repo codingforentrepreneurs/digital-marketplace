@@ -60,9 +60,43 @@ pre_save.connect(product_pre_save_reciever, sender=Product)
 
 
 
-# def product_post_save_reciever(sender, instance, *args, **kwargs):
-# 	if instance.slug != slugify(instance.title):
-# 		instance.slug = slugify(instance.title)
-# 		instance.save()
+class MyProducts(models.Model):
+	user = models.OneToOneField(settings.AUTH_USER_MODEL)
+	products = models.ManyToManyField(Product, blank=True)
 
-# post_save.connect(product_post_save_reciever, sender=Product)
+
+	def __unicode__(self):
+		return "%s" %(self.products.count())
+
+	class Meta:
+		verbose_name = "My Products"
+		verbose_name_plural = "My Products"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
