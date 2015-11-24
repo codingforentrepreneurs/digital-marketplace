@@ -20,6 +20,8 @@ from digitalmarket.mixins import (
 			SubmitBtnMixin
 			)
 
+from tags.models import Tag
+
 from .forms import ProductAddForm, ProductModelForm
 from .mixins import ProductManagerMixin
 from .models import Product
@@ -52,6 +54,29 @@ class ProductUpdateView(ProductManagerMixin, SubmitBtnMixin, MultiSlugMixin, Upd
 	form_class = ProductModelForm
 	#success_url = "/products/"
 	submit_btn = "Update Product"
+
+	def get_initial(self):
+		initial = super(ProductUpdateView,self).get_initial()
+		print initial
+		tags = self.get_object().tag_set.all()
+		initial["tags"] = ", ".join([x.title for x in tags])
+		"""
+		tag_list = []
+		for x in tags:
+			tag_list.append(x.title)
+		"""
+		return initial
+
+	def form_valid(self, form):
+		valid_data = super(ProductUpdateView, self).form_valid(form)
+		tags = form.cleaned_data.get("tags")
+		if tags:
+			tags_list = tags.split(",")
+			for tag in tags_list:
+				new_tag = Tag.objects.get_or_create(title=str(tag).strip())[0]
+				new_tag.products.add(self.get_object())
+		return valid_data
+
 
 
 
