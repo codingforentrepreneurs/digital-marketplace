@@ -24,4 +24,4 @@ class TagListView(ListView):
 	model = Tag
 
 	def get_queryset(self):
-		return Tag.objects.filter(active=True)
+		return Tag.objects.all()
