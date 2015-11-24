@@ -38,6 +38,9 @@ class Product(models.Model):
 		view_name = "products:download_slug"
 		url = reverse(view_name, kwargs={"slug": self.slug})
 		return url
+	"""
+	get thumbails, instance.thumbail_set.all()
+	"""
 
 
 
@@ -78,7 +81,7 @@ THUMB_CHOICES = (
 )
 
 class Thumbnail(models.Model):
-	product = models.ForeignKey(Product)
+	product = models.ForeignKey(Product) #instance.product.title
 	type = models.CharField(max_length=20, choices=THUMB_CHOICES, default='hd')
 	height = models.CharField(max_length=20, null=True, blank=True)
 	width = models.CharField(max_length=20, null=True, blank=True) 

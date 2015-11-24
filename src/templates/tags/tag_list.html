@@ -16,7 +16,9 @@
 </p>
 <ul>
 {% for instance in object_list %}
-    <li><a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a></li>
+    <li><a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a> ({{ instance.products.count }} product{% if instance.products.count > 1 %}s{% endif %})</li>
+
+
 {% empty %}
     <li>No Tags yet.</li>
 {% endfor %}
