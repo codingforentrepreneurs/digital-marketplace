@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% block style %}
+
+{% endblock style %}
+
+
+{% block content %}
+<h1>Tags</h1>
+<p>
+<!-- <form method="GET" action="">
+<input type='text' name='q' placeholder='Search' value='{{ request.GET.q }}'>
+<input type='submit' value='Search'/>
+</form> -->
+</p>
+<ul>
+{% for instance in object_list %}
+    <li><a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a></li>
+{% empty %}
+    <li>No Tags yet.</li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}
