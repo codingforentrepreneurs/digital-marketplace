@@ -8,12 +8,44 @@
 .main-content {
 	width: 800px;
 	margin: 0 auto;
+	clear:both;
+}
+
+.main-nav {
+	width: 800px;
+	margin: 10px auto;
+}
+
+.main-nav li {
+	display: inline;
+}
+
+.first-nav {
+	padding-left:0px;
+}
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
 }
 {% block style %}{% endblock style %}
 </style>
 </head>
 <body>
+<nav class='main-nav'>
+	<ul class="pull-left first-nav">
+		<li><a href='#'>Digital Marketplace</a></li>
+	</ul>
+	<ul class='pull-right'>
+		<li><a href='#'>Products</a></li>
+		<li><a href='#'>Tags</a></li>
+		<li><a href='#'>Library</a></li>
+	</ul>
 
+</nav>
 <div class='main-content'>
 {% block content %}
 <p>This is awesome</p>

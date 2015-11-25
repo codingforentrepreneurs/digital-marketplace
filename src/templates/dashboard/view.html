@@ -1,3 +1,18 @@
-{{ products }}
+{% extends "base.html" %}
 
-{{ top_tags }}
+{% block content %}
+
+<div>
+	<h1>Suggested Products</h1>
+{% include "products/product_list_snippet.html" with product_list=products %}
+
+</div>
+<div>
+	<h1>Tops Tags</h1>
+{% for tag in top_tags %}
+<li><a href="{{ tag.get_absolute_url }}">{{ tag }}</a></li>
+{% endfor %}
+</div>
+{% endblock content %}
+
+

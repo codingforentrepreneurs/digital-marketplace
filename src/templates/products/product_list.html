@@ -15,13 +15,9 @@
 </form>
 </p>
 <ul>
-{% for instance in object_list %}
-    <li class="{% cycle 'abc' 'def' '' 'abc' %}"><a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a><br/>
-    	{{ instance.description|truncatechars:100 }}<br/>
-    	{{ instance.price }}</li>
-{% empty %}
-    <li>No Products yet.</li>
-{% endfor %}
+
+	{% include "products/product_list_snippet.html" with product_list=object_list %}
+
 </ul>
 
 

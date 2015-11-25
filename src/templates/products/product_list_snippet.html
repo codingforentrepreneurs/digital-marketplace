@@ -1,0 +1,18 @@
+{% load get_thumbnail %}
+
+
+{% for instance in product_list %}
+    <li class="">
+    	<a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a><br/>
+    	{% if instance|get_thumbnail:"micro" %}
+    	<a href='{{ instance.get_absolute_url }}'>
+
+    		<img src='{{ instance|get_thumbnail:"micro" }}' />
+    	</a><br/>
+    	{% endif %}
+    	
+    	{{ instance.price }}
+   </li>
+{% empty %}
+    <li>No Products yet.</li>
+{% endfor %}
