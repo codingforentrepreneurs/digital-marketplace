@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
 # Create your views here.
-
+from analytics.models import TagView
 from digitalmarket.mixins import (
 			LoginRequiredMixin,
 			MultiSlugMixin, 
@@ -93,6 +93,19 @@ class ProductUpdateView(ProductManagerMixin, SubmitBtnMixin, MultiSlugMixin, Upd
 
 class ProductDetailView(MultiSlugMixin, DetailView):
 	model = Product
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
+		obj = self.get_object()
+		tags = obj.tag_set.all()
+		for tag in tags:
+			new_view = TagView.objects.get_or_create(
+					user = self.request.user,
+					tag = tag,
+				)[0]
+			new_view.count += 1
+			new_view.save()
+		return context
 
 
 class ProductDownloadView(MultiSlugMixin, DetailView):
