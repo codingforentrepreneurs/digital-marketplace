@@ -3,22 +3,35 @@
 
 {% block content %}
 
-<h1>Product: {{ object.title }}</h1>
-<p>{{ object.description }}</p>
-<p>{{ object.price }}</p>
+<div class='col-primary pull-left'>
+	<h1>Product: {{ object.title }}</h1>
+	<p>{{ object.description }}</p>
+	<p>{{ object.price }}</p>
 
 
-{% for img in object.thumbnail_set.all %}
-<img src="{{ img.media.url }}" />
+	{% for img in object.thumbnail_set.all %}
+	<img src="{{ img.media.url }}" />
 
-{% endfor %}
-
-{% if request.user.is_authenticated and object.media and object in request.user.myproducts.products.all %}
-
-<p><a href='{{ object.get_download }}'>Download</a></p>
-<p><a href='{{ object.get_download }}?preview=True'>Preview</a></p>
+	{% endfor %}
+</div>
 
 
-{% endif %}
+
+
+<div class='col-sidebar pull-right'>
+	{% if request.user.is_authenticated and object.media and object in request.user.myproducts.products.all %}
+
+	<p><a href='{{ object.get_download }}'>Download</a></p>
+	<p><a href='{{ object.get_download }}?preview=True'>Preview</a></p>
+
+	{% else %}
+	<p><a href="#">Purchase</a></p>
+
+	{% endif %}
+
+</div>
+
+<div class='clearfix'></div>
+
 
 {% endblock content %}
