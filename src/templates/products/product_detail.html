@@ -1,6 +1,47 @@
 {% extends "base.html" %}
 
 
+<script>
+$(document).ready(function(){
+{% block jquery %}
+$("#purchase-btn").click(function(event){
+	event.preventDefault()
+	$("#dialog-confirm").fadeIn("300")
+	$("#dialog-confirm").dialog({
+		resizable: false,
+		height: 350,
+		width: 350,
+		modal: true,
+		buttons: {
+			1: {
+				id: "close",
+				text: "Confirm",
+				click: function(){
+					console.log("confirm")
+					$(this).dialog("close")
+				}, 
+				class: "buy-btn"
+			},
+			2: {
+				id: "close",
+				text: "Cancel",
+				click: function(){
+					$(this).dialog("close")
+				}, 
+				class: "cancel-btn"
+			}
+		}
+
+	})
+})
+
+{% endblock jquery %}
+})
+</script>
+
+
+
+
 {% block content %}
 
 <div class='col-primary pull-left'>
@@ -25,7 +66,10 @@
 	<p><a href='{{ object.get_download }}?preview=True'>Preview</a></p>
 
 	{% else %}
-	<p><a href="#">Purchase</a></p>
+	<p><a id='purchase-btn' href="#">Purchase</a></p>
+	<div id='dialog-confirm' title='Confirm Purchase' style='display:none'>
+		<p>Your card on file will be charged after you agree below.</p>
+	</div>
 
 	{% endif %}
 

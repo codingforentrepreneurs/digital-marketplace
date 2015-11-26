@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<link rel='stylesheet' href='{% static "css/base.css" %}' />
 <style>
 
@@ -44,6 +45,25 @@
 .clearfix {
 	clear:both;
 }
+
+#purchage-btn {
+	color: red;
+}
+
+button.buy-btn {
+	border: 1px solid #DA5B00 !important;
+	background: #DA5B00 !important;
+}
+
+button.buy-btn .ui-button-text {
+	color: #ffffff;
+}
+
+.ui-widget-header {
+	border: 1px solid #ffffff !important;
+	background: #ffffff !important;
+}
+
 {% block style %}{% endblock style %}
 </style>
 </head>
@@ -65,6 +85,16 @@
 {% endblock content %}
 
 </div>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script>
+$(document).ready(function(){
+	{% block jquery %}
+
+	{% endblock jquery %}
+})
+</script>
+
 </body>
 
 </html>
