@@ -29,10 +29,11 @@ class CheckoutAjaxView(AjaxRequiredMixin, View):
 		my_products = MyProducts.objects.get_or_create(user=request.user)[0]
 		my_products.products.add(product_obj)
 
-
+		download_link = product_obj.get_download()
+		preview_link = download_link + "?preview=True"
 		data = {
-			"works": True,
-			"time": datetime.datetime.now(),
+			"download": download_link,
+			"preview": preview_link,
 		}
 		return JsonResponse(data)
 
