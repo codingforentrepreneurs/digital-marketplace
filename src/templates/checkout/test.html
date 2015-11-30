@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 
 csrfmiddlewaretoken: "{{ csrf_token }}",
+
+success: function(data, textStatus, jqXHR){
+	console.log(data.works)
+	if (data.works) {
+		$("#content").html(data.time)
+	}
+	// console.log(textStatus)
+	// console.log(jqXHR)
+},
+error: function(jqXHR, textStatus, errorThrown){
+	// console.log(errorThrown)
+	// console.log(textStatus)
+	// alert(errorThrown)
+	if (jqXHR.status == 404) {
+		alert("Page not found!")
+	}
+	console.log(jqXHR.status)
+}
+
 <script>
 
 $(document).ready(function(){
@@ -8,29 +27,27 @@ $(document).ready(function(){
 	$("#test-call").click(function(event){
 		event.preventDefault();
 		// $("#content").html("Hello there!")
-		$.ajax({
+		var request = $.ajax({
 			method: "POST",
 			url: "/test/",
 			data: {
 				testData: "Hello new data",
 				
-			},
-			success: function(data, textStatus, jqXHR){
-				console.log(data.works)
-				if (data.works) {
-					$("#content").html(data.time)
-				}
-				// console.log(textStatus)
-				// console.log(jqXHR)
-			},
-			error: function(jqXHR, textStatus, errorThrown){
-				// console.log(errorThrown)
-				// console.log(textStatus)
-				// alert(errorThrown)
-				if (jqXHR.status == 404) {
-					alert("Page not found!")
-				}
-				console.log(jqXHR.status)
+			}
+		})
+		request.done(function(data){
+			if (data.works) {
+				$("#content").html(data.time)
+			}
+		})
+
+		request.fail(function(jqXHR, textStatus){
+			if (jqXHR.status == 404) {
+				alert("Page not found!")
+			} else if (jqXHR.status == 403) {
+				alert("You must be logged in to do this.")
+			} else {
+				alert("There was an error with your request. Please try again.")
 			}
 		})
 	})
