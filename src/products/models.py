@@ -6,16 +6,17 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 # Create your models here.
 
-
+from sellers.models import SellerAccount
 
 
 def download_media_location(instance, filename):
 	return "%s/%s" %(instance.slug, filename)
 
 class Product(models.Model):
+	seller = models.ForeignKey(SellerAccount)
 	#user = models.OneToOneField(settings.AUTH_USER_MODEL)
-	user = models.ForeignKey(settings.AUTH_USER_MODEL)
-	managers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="managers_products", blank=True)
+	# user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	# managers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="managers_products", blank=True)
 	media = models.ImageField(blank=True, 
 			null=True, 
 			upload_to=download_media_location,
