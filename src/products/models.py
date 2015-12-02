@@ -24,6 +24,7 @@ class Product(models.Model):
 	slug = models.SlugField(blank=True, unique=True)
 	description = models.TextField()
 	price = models.DecimalField(max_digits=100, decimal_places=2, default=9.99, null=True,) #100.00
+	sale_active = models.BooleanField(default=False)
 	sale_price = models.DecimalField(max_digits=100,
 			 decimal_places=2, default=6.99, null=True, blank=True) #100.00
 
@@ -38,6 +39,12 @@ class Product(models.Model):
 		view_name = "products:download_slug"
 		url = reverse(view_name, kwargs={"slug": self.slug})
 		return url
+
+	@property
+	def get_price(self):
+		if self.sale_price and self.sale_active:
+			return self.sale_price
+		return self.price
 	"""
 	get thumbails, instance.thumbail_set.all()
 	"""

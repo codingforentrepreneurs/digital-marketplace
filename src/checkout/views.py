@@ -9,6 +9,9 @@ from products.models import Product, MyProducts
 from digitalmarket.mixins import AjaxRequiredMixin
 # Create your views here.
 
+from billing.models import Transaction
+
+
 class CheckoutAjaxView(AjaxRequiredMixin, View):
 	def post(self, request, *args, **kwargs):
 		if not request.user.is_authenticated():
@@ -25,6 +28,15 @@ class CheckoutAjaxView(AjaxRequiredMixin, View):
 			product_obj = Product.object.get(id=product_id)
 		except:
 			product_obj = Product.objects.filter(id=product_id).first()
+
+		#run transaction
+		#assume it's succesful
+		trans_obj = Transaction.objects.create(
+				user = request.user,
+				product = product_obj,
+				price = product_obj.get_price,
+			)
+
 
 		my_products = MyProducts.objects.get_or_create(user=request.user)[0]
 		my_products.products.add(product_obj)
