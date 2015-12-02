@@ -23,3 +23,6 @@ admin.site.register(Product, ProductAdmin)
 
 
 admin.site.register(MyProducts)
+
+
+admin.site.register(Thumbnail)

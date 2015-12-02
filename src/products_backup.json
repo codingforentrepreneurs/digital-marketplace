@@ -1,0 +1,148 @@
+[
+{
+    "fields": {
+        "description": "High res beach image",
+        "title": "Beach",
+        "media": "beach/Beach.jpg",
+        "price": "9.99",
+        "seller": 3,
+        "sale_active": false,
+        "sale_price": "6.99",
+        "slug": "beach"
+    },
+    "model": "products.product",
+    "pk": 24
+},
+{
+    "fields": {
+        "description": "car",
+        "title": "Automotive",
+        "media": "automotive/car.jpg",
+        "price": "9.99",
+        "seller": 3,
+        "sale_active": false,
+        "sale_price": "6.99",
+        "slug": "automotive"
+    },
+    "model": "products.product",
+    "pk": 25
+},
+{
+    "fields": {
+        "description": "Abc",
+        "title": "Product 3",
+        "media": "",
+        "price": "9.99",
+        "seller": 3,
+        "sale_active": false,
+        "sale_price": "6.99",
+        "slug": "product-3"
+    },
+    "model": "products.product",
+    "pk": 26
+},
+{
+    "fields": {
+        "description": "Abc",
+        "title": "Product 3",
+        "media": "",
+        "price": "9.99",
+        "seller": 3,
+        "sale_active": false,
+        "sale_price": "6.99",
+        "slug": "product-3-26"
+    },
+    "model": "products.product",
+    "pk": 27
+},
+{
+    "fields": {
+        "description": "desc",
+        "title": "New Product 123",
+        "media": "",
+        "price": "9.99",
+        "seller": 3,
+        "sale_active": false,
+        "sale_price": "6.99",
+        "slug": "new-product-123"
+    },
+    "model": "products.product",
+    "pk": 28
+},
+{
+    "fields": {
+        "width": "500",
+        "product": 24,
+        "media": "beach/Beach.jpg",
+        "type": "hd",
+        "height": "334"
+    },
+    "model": "products.thumbnail",
+    "pk": 9
+},
+{
+    "fields": {
+        "width": "350",
+        "product": 24,
+        "media": "beach/Beach_oKSnXDp.jpg",
+        "type": "sd",
+        "height": "234"
+    },
+    "model": "products.thumbnail",
+    "pk": 10
+},
+{
+    "fields": {
+        "width": "150",
+        "product": 24,
+        "media": "beach/Beach_ZMAcL3W.jpg",
+        "type": "micro",
+        "height": "100"
+    },
+    "model": "products.thumbnail",
+    "pk": 11
+},
+{
+    "fields": {
+        "width": "500",
+        "product": 25,
+        "media": "automotive/car.jpg",
+        "type": "hd",
+        "height": "342"
+    },
+    "model": "products.thumbnail",
+    "pk": 12
+},
+{
+    "fields": {
+        "width": "350",
+        "product": 25,
+        "media": "automotive/car_0HfSNBd.jpg",
+        "type": "sd",
+        "height": "239"
+    },
+    "model": "products.thumbnail",
+    "pk": 13
+},
+{
+    "fields": {
+        "width": "150",
+        "product": 25,
+        "media": "automotive/car_P9Yk3J6.jpg",
+        "type": "micro",
+        "height": "102"
+    },
+    "model": "products.thumbnail",
+    "pk": 14
+},
+{
+    "fields": {
+        "products": [
+            25
+        ],
+        "user": 1
+    },
+    "model": "products.myproducts",
+    "pk": 5
+}
+]
