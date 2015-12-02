@@ -8,8 +8,6 @@
 
 {% if apply_form %}
 
-
-
 <form method='POST' action=''> {% csrf_token %}
 	<h3>Rules of the Marketplace</h3>
 	<ol>
@@ -30,6 +28,20 @@
 
 {% endif %}
 
+
+{% if products %}
+
+{{ products }}
+
+{% endif %}
+
+
+
+{% if transactions %}
+
+{{ transactions }}
+
+{% endif %}
 
 
 

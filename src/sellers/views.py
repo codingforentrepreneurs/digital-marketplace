@@ -3,7 +3,9 @@ from django.views.generic import View
 from django.views.generic.edit import FormMixin
 # Create your views here.
 
+from billing.models import Transaction
 from digitalmarket.mixins import LoginRequiredMixin
+from products.models import Product
 
 from .forms import NewSellerForm
 from .models import SellerAccount
@@ -25,22 +27,12 @@ class SellerDashboard(LoginRequiredMixin, FormMixin, View):
 		account = SellerAccount.objects.filter(user=self.request.user)
 		exists = account.exists()
 		active = None
-
-		# context = {
-		# 	"apply_form":apply_form,
-		# 	"account": account,
-		# 	"active": active,
-		# 	"exists": exists,
-		# }
 		context = {}
 
 		if exists:
 			account = account.first()
 			active = account.active
 
-		#if no exists, show form
-		#if exists and no active, show pending
-		#if exists and active, show dashboard data
 		if not exists and not active:
 			context["title"] = "Apply for Account"
 			context["apply_form"] = apply_form
@@ -48,6 +40,9 @@ class SellerDashboard(LoginRequiredMixin, FormMixin, View):
 			context["title"] = "Account Pending"
 		elif exists and active:
 			context["title"] = "Seller Dashboard"
+			products = Product.objects.filter(seller=account)
+			context["products"] = products
+			context["transactions"] = Transaction.objects.filter(product__in=products)
 		else:
 			pass
 		
