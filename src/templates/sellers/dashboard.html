@@ -29,19 +29,22 @@
 {% endif %}
 
 
-{% if products %}
 
-{{ products }}
+{% if products %}
+<div class='pull-right col-sidebar '>
+{% include "products/product_list_snippet.html" with product_list=products %}
+</div>
 
 {% endif %}
 
 
 
 {% if transactions %}
-
-{{ transactions }}
-
+<div class='pull-left col-primary '>
+{% include "sellers/transaction_list.html" with transaction_list=transactions %}
+</div>
 {% endif %}
+
 
 
 
