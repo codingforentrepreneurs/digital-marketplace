@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.views.generic.base import RedirectView
 from django.views.generic.edit import FormMixin
 from django.views.generic.list import ListView
-# Create your views here.
+from django.shortcuts import get_object_or_404
+
 
 from billing.models import Transaction
 from digitalmarket.mixins import LoginRequiredMixin
@@ -11,6 +13,18 @@ from products.models import Product
 from .forms import NewSellerForm
 from .mixins import SellerAccountMixin
 from .models import SellerAccount
+
+
+
+
+
+class SellerProductDetailRedirectView(RedirectView):
+    permanent = True
+    def get_redirect_url(self, *args, **kwargs):
+        obj = get_object_or_404(Product, pk=kwargs['pk'])
+        return obj.get_absolute_url()
+
+
 
 
 class SellerTransactionListView(SellerAccountMixin, ListView):

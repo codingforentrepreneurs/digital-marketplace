@@ -51,7 +51,7 @@ class ProductCreateView(SellerAccountMixin, SubmitBtnMixin, CreateView):
 		return valid_data
 
 
-class ProductUpdateView(SubmitBtnMixin, MultiSlugMixin, UpdateView):
+class ProductUpdateView(ProductManagerMixin, SubmitBtnMixin, MultiSlugMixin, UpdateView):
 	model = Product
 	template_name = "form.html"
 	form_class = ProductModelForm
