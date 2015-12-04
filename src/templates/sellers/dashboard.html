@@ -42,11 +42,11 @@
 
 {% if transactions %}
 <div class='pull-left col-primary '>
-<h3>Today's sales</h3>
+<h3>Today's sales are ${{ today_sales }}</h3>
 {% include "sellers/transaction_list.html" with transaction_list=transactions_today %}
 
 <br/>
-	<h3>Recent Transaction History</h3>
+	<h3>Recent Transaction History (Total Sales: ${{ total_sales }})</h3>
 {% include "sellers/transaction_list.html" with transaction_list=transactions %}
 
 
