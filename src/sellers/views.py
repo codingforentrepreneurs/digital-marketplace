@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from django.views.generic import View
 from django.views.generic.base import RedirectView
@@ -63,9 +64,15 @@ class SellerDashboard(SellerAccountMixin, FormMixin, View):
 			context["title"] = "Account Pending"
 		elif exists and active:
 			context["title"] = "Seller Dashboard"
+			today = datetime.date.today()
+			today_min = datetime.datetime.combine(today, datetime.time.min)
+			today_max = datetime.datetime.combine(today, datetime.time.max)
+			print today, today_min, today_max
 			#products = Product.objects.filter(seller=account)
 			context["products"] = self.get_products()
-			context["transactions"] = self.get_transactions()[:5]
+			transactions_today = self.get_transactions().filter(timestamp__range=(today_min, today_max))
+			context["transactions_today"] = transactions_today
+			context["transactions"] = self.get_transactions().exclude(pk__in=transactions_today)[:5]
 		else:
 			pass
 		
