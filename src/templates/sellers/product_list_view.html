@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load get_thumbnail %}
+{% block style %}
+
+{% endblock style %}
+
+
+{% block content %}
+<h1>My Seller Products</h1>
+<p>
+<form method="GET" action="">
+<input type='text' name='q' placeholder='Search' value='{{ request.GET.q }}'>
+<input type='submit' value='Search'/>
+</form>
+</p>
+<table>
+
+	{% for instance in product_list %}
+    <tr class="">
+    	<td>
+    		{{ instance.id }}
+    	</td>
+    	<td>
+    		<a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a>
+    	</td>
+    	<td>
+    	{% if instance|get_thumbnail:"micro" %}
+    	<a href='{{ instance.get_absolute_url }}'>
+
+    		<img src='{{ instance|get_thumbnail:"micro" }}' style='max-width:100px'/></a><br/>
+    	{% endif %}
+    	</td>
+    	<td>{{ instance.price }}
+    	</td>
+    	<td><a href='{{ instance.get_edit_url }}'>Edit</a> | <a href="#">Delete</a>
+    	</td>
+   </li>
+{% empty %}
+    <li>No Products yet.</li>
+{% endfor %}
+
+</table>
+
+
+{% endblock %}
