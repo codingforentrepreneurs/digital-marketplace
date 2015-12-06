@@ -68,6 +68,14 @@
 <script>
 $(document).ready(function(){
 {% block jquery %}
+$(".rating input[type='radio']").click(function(event){
+	// event.preventDefault()
+	var inputValue = $(this).val()
+	console.log(inputValue)
+})
+
+
+
 $("#purchase-btn").click(function(event){
 	event.preventDefault()
 	var puchaseBtn = $(this)
