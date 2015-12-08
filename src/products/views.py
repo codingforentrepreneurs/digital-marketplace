@@ -6,8 +6,9 @@ from django.conf import settings
 from django.core.servers.basehttp import FileWrapper
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
@@ -17,7 +18,8 @@ from analytics.models import TagView
 from digitalmarket.mixins import (
 			LoginRequiredMixin,
 			MultiSlugMixin, 
-			SubmitBtnMixin
+			SubmitBtnMixin,
+			AjaxRequiredMixin
 			)
 
 from sellers.mixins import SellerAccountMixin
@@ -25,7 +27,53 @@ from tags.models import Tag
 
 from .forms import ProductAddForm, ProductModelForm
 from .mixins import ProductManagerMixin
-from .models import Product
+from .models import Product, ProductRating
+
+
+
+class ProductRatingAjaxView(AjaxRequiredMixin, View):
+	def post(self, request, *args, **kwargs):
+		if not request.user.is_authenticated():
+			return JsonResponse({}, status=401)
+		# credit card required ** 
+		
+		user = request.user
+		product_id = request.POST.get("product_id")
+		rating_value = request.POST.get("rating_value")
+		exists = Product.objects.filter(id=product_id).exists()
+		if not exists:
+			return JsonResponse({}, status=404)
+
+		try:
+			product_obj = Product.object.get(id=product_id)
+		except:
+			product_obj = Product.objects.filter(id=product_id).first()
+
+		rating_obj, rating_obj_created = ProductRating.objects.get_or_create(
+				user=user, 
+				product=product_obj
+				)
+		try:
+			rating_obj = ProductRating.objects.get(user=user, product=product_obj)
+		except ProductRating.MultipleObjectsReturned:
+			rating_obj = ProductRating.objects.filter(user=user, product=product_obj).first()
+		except:
+			#rating_obj = ProductRating.objects.create(user=user, product=product_obj)
+			rating_obj = ProductRating()
+			rating_obj.user = user
+			rating_obj.product = product_obj
+		rating_obj.rating = int(rating_value)
+		myproducts = user.myproducts.products.all()
+
+		if product_obj in myproducts:
+			rating_obj.verified = True
+		# verify ownership
+		rating_obj.save()
+
+		data = {
+			"success": True
+		}
+		return JsonResponse(data)
 
 
 

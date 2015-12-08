@@ -204,6 +204,15 @@ class MyProducts(models.Model):
 
 
 
+class ProductRating(models.Model):
+	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	product = models.ForeignKey(Product)
+	rating = models.IntegerField(null=True, blank=True)
+	verified = models.BooleanField(default=False)
+
+	def __unicode__(self):
+		return "%s" %(self.rating)
+
 
 
 
