@@ -72,6 +72,30 @@ $(".rating input[type='radio']").click(function(event){
 	// event.preventDefault()
 	var inputValue = $(this).val()
 	console.log(inputValue)
+	var request = $.ajax({
+		method: "POST",
+		url: "",
+		data: {
+			product_id: "{{ object.id }}",
+			rating_value = $(this).val(),
+			
+		}
+	})
+	request.done(function(data){
+
+	})
+
+	request.fail(function(jqXHR, textStatus){
+		if (jqXHR.status == 404) {
+			alert("Page not found!")
+		} else if (jqXHR.status == 403) {
+			alert("You must be logged in to do this.")
+		} else {
+			alert("There was an error with your request. Please try again.")
+		}
+	})
+
+
 })
 
 
