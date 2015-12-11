@@ -171,3 +171,12 @@ The tutorial code below is the final code from the end of each tutorial video. E
 
 [91 - Rating Display, Avg, Count](../../tree/b8ae7d6e1c552f68d57773948aacc81391a4d609)
 
+[92 - User Library](../../tree/7f8f711520c1bca48013bc7670b70b77d7c23d0d)
+
+[93 - Product Updates](../../tree/4895196918428f4355dfce95b2c278b4b1fc54aa)
+
+[94 - Vendor Pages](../../tree/80d545e00b89cdbf59b1e0d505020bded98d1e4a)
+
+[95 - Curated Products](../../tree/52e08a42e8302a09bbaf5b2e4a963f20365e0e34)
+
+
