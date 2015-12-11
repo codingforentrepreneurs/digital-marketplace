@@ -1,4 +1,4 @@
-<form method="POST" action="">
+<form method="POST" action="" enctype='multipart/form-data'>
 {% csrf_token %}
 {{ form.as_p }}
 <input type='submit' value='{% if submit_btn %}{{ submit_btn }}{% else %}Submit{% endif %}' />
