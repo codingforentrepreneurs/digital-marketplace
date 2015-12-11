@@ -11,7 +11,7 @@
             <br/>
     	{% endif %}
     	
-    	{{ instance.price }}
+    	{{ instance.get_html_price|safe }}
    </li>
 {% empty %}
     <li>No Products yet.</li>
