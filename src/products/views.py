@@ -27,7 +27,7 @@ from tags.models import Tag
 
 from .forms import ProductAddForm, ProductModelForm
 from .mixins import ProductManagerMixin
-from .models import Product, ProductRating
+from .models import Product, ProductRating, MyProducts
 
 
 
@@ -200,6 +200,22 @@ class ProductListView(ListView):
 
 	def get_queryset(self, *args, **kwargs):
 		qs = super(ProductListView, self).get_queryset(**kwargs)
+		query = self.request.GET.get("q")
+		if query:
+			qs = qs.filter(
+					Q(title__icontains=query)|
+					Q(description__icontains=query)
+				).order_by("title")
+		return qs
+
+
+class UserLibraryListView(LoginRequiredMixin, ListView):
+	model = MyProducts
+	template_name = "products/library_list.html"
+
+	def get_queryset(self, *args, **kwargs):
+		obj = MyProducts.objects.get_or_create(user=self.request.user)[0]
+		qs = obj.products.all()
 		query = self.request.GET.get("q")
 		if query:
 			qs = qs.filter(

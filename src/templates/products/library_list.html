@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load get_thumbnail %}
+
+{% block style %}
+
+{% endblock style %}
+
+
+{% block content %}
+<h1>Library</h1>
+<p>
+<form method="GET" action="">
+<input type='text' name='q' placeholder='Search' value='{{ request.GET.q }}'>
+<input type='submit' value='Search'/>
+</form>
+</p>
+
+
+<table class='table'>
+<thead>
+	<th>Product</th>
+	<th>Image</th>
+	<th></th>
+</thead>
+
+
+
+
+
+
+{% for instance in product_list %}
+<tr>
+<td>
+<a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a>
+</td>
+
+<td>
+{% if instance|get_thumbnail:"micro" %}
+	<a href='{{ instance.get_absolute_url }}'>
+
+		<img src='{{ instance|get_thumbnail:"micro" }}' /></a>
+        <br/>
+	{% endif %}
+
+</td>
+
+<td>
+	{% if instance.get_download %}
+	<a href='{{ instance.get_download }}'>Download</a>
+	{% else %}
+	<span>Coming Soon</span>
+	{% endif %}
+	</td>
+  </tr>
+{% empty %}
+    <li>No products in library yet, please shop now.</li>
+
+
+{% endfor %}
+
+
+	</table>
+
+
+{% endblock %}
