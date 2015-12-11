@@ -159,6 +159,8 @@ class ProductDownloadView(MultiSlugMixin, DetailView):
 
 	def get(self, request, *args, **kwargs):
 		obj = self.get_object()
+		if not request.user.is_authenticated():
+			raise Http404
 		if obj in request.user.myproducts.products.all():
 			filepath = os.path.join(settings.PROTECTED_ROOT, obj.media.path)
 			guessed_type = guess_type(filepath)[0]
@@ -256,7 +258,7 @@ class UserLibraryListView(LoginRequiredMixin, ListView):
 
 
 def create_view(request): 
-	form = ProductModelForm(request.POST or None)
+	form = ProductModelForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		print form.cleaned_data.get("publish")
 		instance = form.save(commit=False)
