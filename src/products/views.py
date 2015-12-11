@@ -22,6 +22,7 @@ from digitalmarket.mixins import (
 			AjaxRequiredMixin
 			)
 
+from sellers.models import SellerAccount
 from sellers.mixins import SellerAccountMixin
 from tags.models import Tag
 
@@ -192,6 +193,33 @@ class SellerProductListView(SellerAccountMixin, ListView):
 				).order_by("title")
 		return qs
 
+
+
+
+class VendorListView(ListView):
+	model = Product
+	template_name = "products/product_list.html"
+
+	def get_object(self):
+		username= self.kwargs.get("vendor_name")
+		seller = get_object_or_404(SellerAccount, user__username=username)
+		return seller
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(VendorListView, self).get_context_data(*args, **kwargs)
+		context["vendor_name"] = str(self.get_object().user.username)
+		return context
+
+	def get_queryset(self, *args, **kwargs):
+		seller = self.get_object()
+		qs = super(VendorListView, self).get_queryset(**kwargs).filter(seller=seller)
+		query = self.request.GET.get("q")
+		if query:
+			qs = qs.filter(
+					Q(title__icontains=query)|
+					Q(description__icontains=query)
+				).order_by("title")
+		return qs
 
 
 

@@ -177,7 +177,7 @@ $("#purchase-btn").click(function(event){
 {% block content %}
 
 <div class='col-primary pull-left'>
-	<h1>Product: {{ object.title }}</h1>
+	<h1>Product: {{ object.title }} <small>by: <a href='{{ object.seller.get_absolute_url }}'>{{ object.seller.user.username }}</a> </small></h1>
 	<p>{{ object.description }}</p>
 	<p>{{ object.get_html_price|safe }}</p>
 	<p>Purchases: {{ object.transaction_set.count }}</p>
